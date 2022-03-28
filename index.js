@@ -21,7 +21,17 @@ app.post('/formulario',(req,res)=>{
 
     })
 })
-
+app.post('/formulario2',(req,res)=>{
+    console.log(req.body);
+    const {nombre2,apellido2}=req.body;
+    if(!nombre2||!apellido2)
+    return res.redirect("/error.html");
+    fs.writeFile("archivos/datosUsuarioDescargable.txt",`{"nombre" = "${nombre2}", "apellido" = "${apellido2}"}`,(err)=>{
+        if(err)return res.send("fallo al crear");
+        res.download(__dirname + "/archivos/datosUsuarioDescargable.txt");
+        
+    })
+})
 app.get('/',(req,res)=>{
     res.send('visitaste la pagina de inicio');
 })
