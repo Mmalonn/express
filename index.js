@@ -1,5 +1,6 @@
 "use strict"
 
+const fs = require('fs');
 const express = require('express');
 const app = express()
 const port = 3000
@@ -11,7 +12,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post('/formulario',(req,res)=>{
     console.log(req.body);
-    res.send('formulario enviado...');
+    const {nombre,apellido}=req.body;
+    if(!nombre||!apellido)
+    return res.redirect("/error.html");
+    fs.writeFile("archivos/datosusuario.txt",`{"nombre" = "${nombre}", "apellido" = "${apellido}"}`,(err)=>{
+        if (err) return res.send("error al enviar");
+        res.send("se creo el dato");
+
+    })
 })
 
 app.get('/',(req,res)=>{
