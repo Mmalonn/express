@@ -7,6 +7,12 @@ const port = 3000
 
 //middleware
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/formulario',(req,res)=>{
+    console.log(req.body);
+    res.send('formulario enviado...');
+})
 
 app.get('/',(req,res)=>{
     res.send('visitaste la pagina de inicio');
