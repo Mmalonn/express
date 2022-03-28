@@ -1,12 +1,22 @@
 "use strict"
 
-const http = require("http");
-const port = 5000;
+const express = require('express');
+const app = express()
+const port = 3000
 
-const server = http.createServer((req,res)=>{
-    res.end("respuesta");
+
+//middleware
+app.use(express.static("public"));
+
+app.get('/',(req,res)=>{
+    res.send('visitaste la pagina de inicio');
 })
 
-server.listen(port,() =>{
-    console.log("funcionando 😊")
+app.get('/marcos',(req,res)=>{
+    res.send('visitaste a marcos');
 })
+
+app.listen(port,()=>{
+    console.log("done");
+})
+
